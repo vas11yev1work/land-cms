@@ -5,18 +5,20 @@
         .content
             .files-diagram
                 .files.main-block
-                    DoughnutChart
+                    DoughnutChart(style="display: block; width: 500px; height: 300px;" height="245")
             .files-counts
-                .count.count-html.main-block
-                .count.count-css.main-block
-                .count.count-js.main-block
-                .count.count-img.main-block
-
+                .count.count.main-block(v-for="file in files")
+                    .count-image
+                        //- img
+                    .count-title
+                        h3.file-name {{ file.title }}:
+                        span.file-value {{ file.value }} файла
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import DoughnutChart from '../components/DoughnutChart';
+import files from '../files';
 
 @Component({
     components: {
@@ -24,7 +26,7 @@ import DoughnutChart from '../components/DoughnutChart';
     }
 })
 export default class Home extends Vue {
-    chartData = {}
+    files = files
 }
 </script>
 
@@ -35,6 +37,16 @@ export default class Home extends Vue {
         .files-diagram{
             margin-right: 20px;
             width: 50%;
+            .files{
+                display: flex;
+                justify-content: center;
+            }
+        }
+        .files-counts{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            width: 100%;
         }
     }
 }
