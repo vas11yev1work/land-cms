@@ -7,17 +7,18 @@
                 .files.main-block
                     FilesChart(:filesData="filesData" :filesOptions="filesOptions" :height="300" :width="500")
             .files-counts
-                .count.count.main-block
+                .count.count.main-block(v-for="file in files")
                     .count-image
-                        img
+                        img(:src="file.image" :alt="file.title")
                     .count-title
-                        h3.file-name 
-                        span.file-value 
+                        h3.file-name {{ file.title }}:
+                        span.file-value {{ file.value }} 
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import FilesChart from '../components/FilesChart';
+import files from '../files';
 
 @Component({
     components: {
@@ -25,6 +26,7 @@ import FilesChart from '../components/FilesChart';
     }
 })
 export default class Home extends Vue {
+    files = files;
     filesData = {
         labels: ['HTML', 'CSS', 'JS', 'IMG'],
         datasets: [
@@ -37,7 +39,7 @@ export default class Home extends Vue {
                 borderWidth: 0,
             }
         ]
-    }
+    };
     filesOptions = {
         cutoutPercentage: 93,
         legend: {
@@ -58,7 +60,7 @@ export default class Home extends Vue {
             caretPadding: 8,
             cornerRadius: 3
         }
-    }
+    };
 }
 </script>
 
@@ -79,6 +81,25 @@ export default class Home extends Vue {
             grid-template-columns: 1fr 1fr;
             grid-gap: 20px;
             width: 100%;
+            .count{
+                display: flex;
+                align-items: center;
+                .count-image{
+                    margin-right: 25px;
+                    img{
+                        height: 90px;
+                        width: auto;
+                    }
+                }
+                .count-title{
+                    font-size: 14px;
+                    display: flex;
+                    .file-name{
+                        margin-right: 5px;
+                        font-size: 14px;
+                    }
+                }
+            }
         }
     }
 }
