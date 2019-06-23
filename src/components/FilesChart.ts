@@ -33,6 +33,8 @@ Chart.pluginService.register({
 });
 
 
+
+// @ts-ignore
 @Component({
     extends: Doughnut,
 })
@@ -41,8 +43,9 @@ export default class FilesChart extends Vue<Doughnut> {
     @Prop() readonly filesOptions!: object;
     @Prop() readonly legendDOMId!: string;
     mounted () {
-        this.renderChart(this.filesData, this.filesOptions)
-        document.getElementById('chartjsLegend').innerHTML = this.generateLegend();
+        this.renderChart(this.filesData, this.filesOptions);
+		// @ts-ignore
+		document.getElementById('chartjsLegend').innerHTML = this.generateLegend();
     }
 }
 

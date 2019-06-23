@@ -1,31 +1,59 @@
 <template lang="pug">
-    .analythic
-        .title
-            h3.view-title Файлы
-        .content
-            .files-diagram
-                .files.main-block
-                    FilesChart(:filesData="filesData" :filesOptions="filesOptions" :height="300" :width="500", :legendDOMId="chartjsLegend")
-                    div#chartjsLegend.chartjsLegend
-            .files-counts
-                .count.count.main-block
-                    .count-image
-                        img
-                    .count-title
-                        h3.file-name 
-                        span.file-value 
+    .analythic-page
+        .files-wrap.v-page
+            .title
+                h3.view-title Файлы
+            .content
+                .files-diagram
+                    .files.main-block
+                        FilesChart(:filesData="filesData" :filesOptions="filesOptions" :height="300" :width="500", :legendDOMId="chartjsLegend")
+                        div#chartjsLegend.chartjsLegend
+                .files-counts
+                    .count.count.main-block(v-for="file in files")
+                        .count-image
+                            img(:src="file.image" :alt="file.title")
+                        .count-title
+                            h3.file-name {{ file.title }}:
+                            span.file-value {{ file.value }}
+        .analythic.ya-metrika.v-page
+            .title
+                h3.view-title Яндекс.Метрика
+            .content
+                .chart.week-views-chart.main-block
+                    .chart-header
+                        h4.chart-title Посетители
+                        h4.chart-title 16 мая - 22 мая 2019
+                    .chart-content
+                        WeekViews(:filesData="weekViewsDataYa" :filesOptions="legendFalse" :width="200" :height="130")
+                .chart.mounth-views-chart.main-block
+                    .chart-header
+                        h4.chart-title Посетители
+                        h4.chart-title 23 апр - 22 мая 2019
+                    .chart-content
+                        WeekViews(:filesData="weekViewsDataYa" :filesOptions="legendFalse" :width="200" :height="130")
+                .chart.devices.main-block
+                    .chart-header
+                        h4.chart-title Устройства
+                        h4.chart-title 16 мая - 22 мая 2019
+                    .chart-content
+                        WeekViews(:filesData="weekViewsDataYa" :filesOptions="legendFalse" :width="200" :height="130")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import FilesChart from '../components/FilesChart';
+import WeekViews from '../components/WeekViews';
+import files from '../files';
 
 @Component({
+    // @ts-ignore
     components: {
-        FilesChart
+        FilesChart,
+        WeekViews
     }
 })
 export default class Home extends Vue {
+    files = files;
     filesData = {
         labels: ['HTML', 'CSS', 'JS', 'IMG'],
         datasets: [
@@ -50,7 +78,7 @@ export default class Home extends Vue {
                 fontSize: 14,
                 fontFamily: 'Montserrat',
                 //usePointStyle: true,
-                generateLabels: function(chart) {
+                /*generateLabels: function(chart) {
                     var data = chart.data;
                     if (data.labels.length && data.datasets.length) {
                         return data.labels.map(function(label, i) {
@@ -82,8 +110,8 @@ export default class Home extends Vue {
                     } else {
                         return [];
                     }
-                }
-            },
+                }*/
+            }
         },
         elements: {
             center: {
@@ -101,6 +129,39 @@ export default class Home extends Vue {
             yPadding: 10,
             caretPadding: 8,
             cornerRadius: 3
+        },
+        legendCallback: function(chart: any) {
+            let text = [];
+            text.push('<ul class="' + chart.id + '-legend">');
+            for (let i = 0; i < chart.data.datasets[0].data.length; i++) {
+                text.push('<li><span style="background-color:' +
+                    chart.data.datasets[0].backgroundColor[i] + '">');
+                if (chart.data.labels[i]) {
+                    text.push(chart.data.labels[i]);
+                }
+                text.push('</span></li>');
+            }
+            text.push('</ul>');
+            return text.join("");
+        }
+    }
+    weekViewsDataYa = {
+        labels: [16, 17, 18, 19, 20, 21, 22],
+        datasets: [
+            {
+                label: 'Посетители',
+                hoverBorderWidth: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#F88767',
+                borderWidth: 2,
+                data: [390, 452, 482, 438, 510, 511, 590],
+                pointBackgroundColor: '#F88767',
+            }
+        ]
+    };
+    legendFalse = {
+        legend: {
+            display: false
         }
     }
     mounted(){
@@ -117,22 +178,61 @@ export default class Home extends Vue {
     margin-right: 5px;
     border-radius: 25px;
 }
-.analythic{
-    .content{
-        display: flex;
-        .files-diagram{
-            margin-right: 20px;
-            min-width: 50%;
-            .files{
-                display: flex;
-                justify-content: center;
+.analythic-page{
+    .files-wrap{
+        .content{
+            display: flex;
+            .files-diagram{
+                margin-right: 20px;
+                min-width: 50%;
+                .files{
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+            .files-counts{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 20px;
+                width: 100%;
+                .count{
+                    display: flex;
+                    align-items: center;
+                    .count-image{
+                        margin-right: 25px;
+                        img{
+                            height: 90px;
+                            width: auto;
+                        }
+                    }
+                    .count-title{
+                        font-size: 14px;
+                        display: flex;
+                        .file-name{
+                            margin-right: 5px;
+                            font-size: 14px;
+                        }
+                    }
+                }
             }
         }
-        .files-counts{
+    }
+    .analythic{
+        .content{
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 20px;
-            width: 100%;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-column-gap: 20px;
+            .chart{
+                .chart-header{
+                    display: flex;
+                    margin-bottom: 20px;
+                    justify-content: space-between;
+                    .chart-title{
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+                }
+            }
         }
     }
 }
