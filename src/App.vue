@@ -86,6 +86,9 @@ button, input{
     width: 1140px;
     margin: 0 auto;
 }
+.v-page{
+    margin-bottom: 40px;
+}
 .view-title{
     font-size: 20px;
     font-weight: 400;
