@@ -1,8 +1,9 @@
 import { Doughnut } from 'vue-chartjs';
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
+// @ts-ignore
 Chart.pluginService.register({
-	beforeDraw: function (chart) {
+	beforeDraw: function (chart: any) {
 		if (chart.config.options.elements.center) {
 		    var ctx = chart.chart.ctx;
 		    var centerConfig = chart.config.options.elements.center;

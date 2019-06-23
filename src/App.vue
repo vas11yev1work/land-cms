@@ -56,65 +56,74 @@ export default class App extends Vue {
 
 
 <style lang="scss">
-@import '@/assets/color.scss';
-*, *::before, *::after{
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-html{
-    height: 100%;
-}
-body{
-    height: 100%;
-    color: $main;
-    background-color: $bg;
-    .main-wrap{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+    @import '@/assets/color.scss';
+    .point {
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        padding: 7px 0 0 0 ;
+        display: inline-block;
+        position: relative;
+        top: 2px;
     }
-}
-button, input[type=submit]{
-    cursor: pointer;
-}
-button, input{
-    outline: none;
-}
-.container{
-    width: 1140px;
-    margin: 0 auto;
-}
-.v-page{
-    margin-bottom: 40px;
-}
-.view-title{
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 20px;
-}
-.main-block{
-    padding: 20px;
-    background-color: $white;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-}
-a{
-    text-decoration: none;
-    color: $main;
-}
-li{
-    list-style-type: none;
-    font-size: 14px;
-}
-p{
-    font-size: 14px;
-}
-main{
-    flex: 1 0 auto;
-}
-footer{
-    flex: 0 0 auto;
-}
+    *, *::before, *::after{
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    html{
+        height: 100%;
+    }
+    body{
+        height: 100%;
+        color: $main;
+        background-color: $bg;
+        .main-wrap{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    button, input[type=submit]{
+        cursor: pointer;
+    }
+    button, input{
+        outline: none;
+    }
+    .container{
+        width: 1140px;
+        margin: 0 auto;
+    }
+    .v-page{
+        margin-bottom: 40px;
+    }
+    .view-title{
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+    .main-block{
+        padding: 20px;
+        background-color: $white;
+        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+    }
+    a{
+        text-decoration: none;
+        color: $main;
+    }
+    li{
+        list-style-type: none;
+        font-size: 14px;
+    }
+    p{
+        font-size: 14px;
+    }
+    main{
+        flex: 1 0 auto;
+    }
+    footer{
+        flex: 0 0 auto;
+    }
 </style>

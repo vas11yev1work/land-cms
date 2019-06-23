@@ -132,10 +132,9 @@ export default class Home extends Vue {
         },
         legendCallback: function(chart: any) {
             let text = [];
-            text.push('<ul class="' + chart.id + '-legend">');
+            text.push(`<ul class="${chart.id}-legend inlineUl">`);
             for (let i = 0; i < chart.data.datasets[0].data.length; i++) {
-                text.push('<li><span style="background-color:' +
-                    chart.data.datasets[0].backgroundColor[i] + '">');
+                text.push(`<li><span class="point" style="background-color: ${chart.data.datasets[0].backgroundColor[i]}"></span><span>`);
                 if (chart.data.labels[i]) {
                     text.push(chart.data.labels[i]);
                 }
@@ -178,6 +177,9 @@ export default class Home extends Vue {
     margin-right: 5px;
     border-radius: 25px;
 }
+.inlineUl ul li{
+    display: inline;
+}
 .analythic-page{
     .files-wrap{
         .content{
@@ -187,6 +189,7 @@ export default class Home extends Vue {
                 min-width: 50%;
                 .files{
                     display: flex;
+                    flex-wrap: wrap;
                     justify-content: center;
                 }
             }
