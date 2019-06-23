@@ -132,9 +132,9 @@ export default class Home extends Vue {
         },
         legendCallback: function(chart: any) {
             let text = [];
-            text.push(`<ul class="${chart.id}-legend inlineUl">`);
+            text.push(`<ul style="display: flex; transform: translateX(15px);" class="${chart.id}-legend inlineUl">`);
             for (let i = 0; i < chart.data.datasets[0].data.length; i++) {
-                text.push(`<li><span class="point" style="background-color: ${chart.data.datasets[0].backgroundColor[i]}"></span><span>`);
+                text.push(`<li style="margin-top: 30px; margin-right: 30px;"><span class="point" style="background-color: ${chart.data.datasets[0].backgroundColor[i]}; margin-right: 10px;"></span><span>`);
                 if (chart.data.labels[i]) {
                     text.push(chart.data.labels[i]);
                 }
@@ -191,6 +191,11 @@ export default class Home extends Vue {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
+                    #chartjsLegend{
+                        .inlineUl{
+                            display: flex;
+                        }
+                    }
                 }
             }
             .files-counts{
